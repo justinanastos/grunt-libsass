@@ -13,8 +13,6 @@ chai.use(sinonChai);
 describe('grunt-libsass', function () {
     var actual, expected;
 
-    console.log('I am here');
-
 
     describe('compact', function () {
         beforeEach(function () {
@@ -22,7 +20,7 @@ describe('grunt-libsass', function () {
             expected = grunt.file.read('test/expected/compact.css');
         });
 
-        it('creates the expected file when a compact format is used', function () {
+        it('creates the expected output when a compact format is used', function () {
             expect(actual).to.equal(expected);
         });
     });
@@ -37,14 +35,14 @@ describe('grunt-libsass', function () {
             expected1 = grunt.file.read('test/expected/filesObject1.css');
         });
 
-        it('creates the expected files when a files object format is used', function () {
+        it('creates the expected output when a files object format is used', function () {
             expect(actual0).to.equal(expected0);
             expect(actual1).to.equal(expected1);
         });
     });
 
     describe('expand files', function () {
-        it('creates all the expected files', function () {
+        it('creates all the expected output', function () {
             grunt.file.expand(['test/expected/expand/*.css'])
 
             .forEach(function (file) {
@@ -52,6 +50,18 @@ describe('grunt-libsass', function () {
                 var actual = grunt.file.read('tmp/expand/' + path.basename(file));
                 expect(actual).to.equal(expected);
             });
+        });
+    });
+
+    describe('load path', function () {
+
+        beforeEach(function () {
+            actual = grunt.file.read('tmp/loadPath.css');
+            expected = grunt.file.read('test/expected/loadPath.css');
+        });
+
+        it('creates the expected output when a load path is provided', function () {
+            expect(actual).to.equal(expected);
         });
     });
 });

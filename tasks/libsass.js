@@ -9,6 +9,7 @@
 'use strict';
 
 var
+    path = require('path'),
     libsass = require('node-sass'),
     chalk = require('chalk'),
     Q = require('q');
@@ -18,8 +19,8 @@ module.exports = function(grunt) {
 
     function makeSuccessFn(file, deferred) {
         return function (css) {
-            grunt.file.write(file.dest, css);
-            grunt.log.writeln('Wrote file: ' + chalk.green(file.dest));
+            //grunt.file.write(file.dest, css);
+            grunt.log.writeln('Wrote file: ' + chalk.green(css));
             deferred.resolve(true);
         };
     }
@@ -35,27 +36,40 @@ module.exports = function(grunt) {
     function makeRenderOpts(file, deferred) {
         return {
             file: file.src,
+            outFile: file.dest,
+            includePaths: file.__libsassOptions.loadPath,
             success: makeSuccessFn(file, deferred),
             error: makeErrorFn(deferred)
         };
     }
 
 
-    function checkSource(src) {
-        if(src.length >= 1 && grunt.file.exists(src[0])) {
-            return true;
+    function checkSource(file) {
+        if(file.src.length >= 1 && grunt.file.exists(file.src[0])) {
+            return file;
         }
 
-        throw new Error(src + ' does not exist!');
+        throw new Error(file.src + ' does not exist!');
+    }
+
+    function ensureOutputDir(file) {
+        grunt.file.mkdir(path.dirname(file.dest));
+
+        return file;
+    }
+
+    function applyOptions(options, file) {
+        file.__libsassOptions = options;
+        return file;
     }
 
 
     function renderFileGroup(file) {
         var deferred = Q.defer();
 
-        if(checkSource(file.src)) {
-            libsass.render(makeRenderOpts(file, deferred));
-        }
+
+        libsass.renderFile(makeRenderOpts(file, deferred));
+
 
         return deferred.promise;
     }
@@ -64,13 +78,18 @@ module.exports = function(grunt) {
     grunt.registerMultiTask('libsass', 'Fast grunt sass compiler using libsass via node-sass', function() {
         // Merge task-specific and/or target-specific options with these defaults.
         var options = this.options({
-            punctuation: '.',
-            separator: ', '
+            loadPath: []
         });
 
         var done = this.async();
 
-        Q.all(this.files.map(renderFileGroup))
+        Q.all(
+            this.files
+            .map(applyOptions.bind(undefined, options))
+            .map(checkSource)
+            .map(ensureOutputDir)
+            .map(renderFileGroup)
+        )
 
         .then(function () {
             done();

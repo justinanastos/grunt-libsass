@@ -48,6 +48,13 @@ grunt.initConfig({
                     dest: 'tmp/expand',
                     ext: '.css'
                 }]
+            },
+            loadPath: {
+                src: 'test/fixtures/loadPath/main/main.scss',
+                dest: 'tmp/loadPath.css',
+                options: {
+                    loadPath: ['test/fixtures/loadPath/include']
+                }
             }
         },
 
