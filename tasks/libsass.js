@@ -2,7 +2,7 @@
  * grunt-libsass
  * https://github.com/project-collins/grunt-libsass
  *
- * Copyright (c) 2014 Andrew Smith
+ * Copyright (c) 2014 Project Collins
  * Licensed under the MIT license.
  */
 
@@ -67,9 +67,7 @@ module.exports = function(grunt) {
     function renderFileGroup(file) {
         var deferred = Q.defer();
 
-
         libsass.renderFile(makeRenderOpts(file, deferred));
-
 
         return deferred.promise;
     }
