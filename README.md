@@ -89,3 +89,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 ## Release History
 0.1.0 Alpha release. Limited functionality.
 0.1.1 Better documentation
+0.1.2 Screwed up 0.1.1 ...
