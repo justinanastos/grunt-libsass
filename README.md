@@ -19,66 +19,67 @@ grunt.loadNpmTasks('grunt-libsass');
 
 ## The "libsass" task
 
-### Overview
-In your project's Gruntfile, add a section named `libsass` to the data object passed into `grunt.initConfig()`.
+*Run this task with the grunt libsass command*
 
-```js
-grunt.initConfig({
-  libsass: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
-});
-```
+This plugin automates fast compilation of scss files using [libsass](https://github.com/hcatlin/libsass) via the
+[node-sass](https://github.com/andrew/node-sass) module. It aims to make coexistence with and transition from the
+[grunt-contrib-sass](https://github.com/gruntjs/grunt-contrib-sass) library as painless as possible.
+
+**Please not that grunt-libsass is incomplete and only very lightly tested at this point.**
+
+### Sass compatibility
+
+As noted in the documentation for the node-sass module
+
+> The libsass library is not currently at feature parity with the 3.2 Ruby Gem that most Sass users will use,
+> and has little-to-no support for 3.3 syntax.
+
+In other words, you may find that there are scss files it cannot compile and if there are sass 3.3 features you simply
+*must* have then the afforementioned grunt-contrib-sass plugin would be a better choice.
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
+#### options.loadPath
+Type: `Array[String]`
+Default value: `[]`
 
-A string value that is used to do something with whatever.
+An array of paths to search for files to @import
 
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+#### Compile a single file
+In this example, the default options are used to compile a sass file
 
 ```js
 grunt.initConfig({
   libsass: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+      myTarget{
+          src: 'src/my.scss'
+          dest: 'dist/my.css',
+      }
+  }
 });
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+#### Compile all files in a directory, with an loadPath set
+In this example, all the scss files in a directory will be compiled. Paths are set to search for files to @import
 
 ```js
 grunt.initConfig({
   libsass: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+      loadPath: ['my/load/path']
     },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    files: {[
+        {
+            expand: true,
+            cwd: 'my/src/dir',
+            dest: 'dist',
+            ext: '.css'
+        }
+    ]},
+  }
 });
 ```
 
@@ -86,4 +87,5 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+0.1.0 Alpha release. Limited functionality.
+0.1.1 Better documentation
