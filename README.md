@@ -40,7 +40,7 @@ In other words, you may find that there are scss files it cannot compile and if 
 ### Options
 
 #### options.loadPath
-Type: `Array[String]`
+Type: `[String]`
 Default value: `[]`
 
 An array of paths to search for files to @import
@@ -75,6 +75,7 @@ grunt.initConfig({
         {
             expand: true,
             cwd: 'my/src/dir',
+            src: ['**/*.scss'],
             dest: 'dist',
             ext: '.css'
         }
@@ -88,5 +89,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 0.1.0 Alpha release. Limited functionality.
+
 0.1.1 Better documentation
+
 0.1.2 Screwed up 0.1.1 ...
