@@ -69,14 +69,15 @@ grunt.initConfig({
 });
 ```
 
-#### Compile all files in a directory, with an loadPath set
+#### Compile all files in a directory, with a loadPath set and sourcemaps enabled
 In this example, all the scss files in a directory will be compiled. Paths are set to search for files to @import
 
 ```js
 grunt.initConfig({
   libsass: {
     options: {
-      loadPath: ['my/load/path']
+      loadPath: ['my/load/path'],
+      sourcemap: true
     },
     files: {[
         {
