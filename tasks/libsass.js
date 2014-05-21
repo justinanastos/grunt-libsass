@@ -19,7 +19,6 @@ module.exports = function(grunt) {
 
     function makeSuccessFn(file, deferred) {
         return function (css) {
-            //grunt.file.write(file.dest, css);
             grunt.log.writeln('Wrote file: ' + chalk.green(css));
             deferred.resolve(true);
         };
@@ -38,6 +37,7 @@ module.exports = function(grunt) {
             file: file.src,
             outFile: file.dest,
             includePaths: file.__libsassOptions.loadPath,
+            sourceMap: file.__libsassOptions.sourcemap,
             success: makeSuccessFn(file, deferred),
             error: makeErrorFn(deferred)
         };
@@ -76,7 +76,8 @@ module.exports = function(grunt) {
     grunt.registerMultiTask('libsass', 'Fast grunt sass compiler using libsass via node-sass', function() {
         // Merge task-specific and/or target-specific options with these defaults.
         var options = this.options({
-            loadPath: []
+            loadPath: [],
+            sourceMap: false
         });
 
         var done = this.async();

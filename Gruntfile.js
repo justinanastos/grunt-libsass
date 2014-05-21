@@ -55,6 +55,13 @@ grunt.initConfig({
                 options: {
                     loadPath: ['test/fixtures/loadPath/include']
                 }
+            },
+            sourcemap: {
+                src: 'test/fixtures/sourcemap/sheet.scss',
+                dest: 'tmp/sourcemap.css',
+                options: {
+                    sourcemap: true
+                }
             }
         },
 

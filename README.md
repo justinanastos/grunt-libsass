@@ -45,6 +45,13 @@ Default value: `[]`
 
 An array of paths to search for files to @import
 
+### options.sourcemap
+Type: `[String]`
+Default value `false`
+
+When set to true a sourcemap named &lt;css-file-name&gt;.map will be generated in the same location as the compiled css
+file.
+
 
 ### Usage Examples
 
@@ -93,3 +100,5 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 0.1.1 Better documentation
 
 0.1.2 Screwed up 0.1.1 ...
+
+0.2.0 Added sourcemap option

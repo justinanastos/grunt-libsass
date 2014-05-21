@@ -1,7 +1,7 @@
 {
   "name": "grunt-libsass",
   "description": "Fast grunt sass compiler using libsass via node-sass",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "homepage": "https://github.com/project-collins/grunt-libsass",
   "author": {
     "name": "Andrew Smith",

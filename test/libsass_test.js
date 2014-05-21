@@ -64,4 +64,20 @@ describe('grunt-libsass', function () {
             expect(actual).to.equal(expected);
         });
     });
+
+    describe('sourcemap', function () {
+        var actualMap, expectedMap;
+
+        beforeEach(function () {
+            actual = grunt.file.read('tmp/sourcemap.css');
+            expected = grunt.file.read('test/expected/sourcemap/sourcemap.css');
+            actualMap = grunt.file.read('tmp/sourcemap.css.map');
+            expectedMap = grunt.file.read('test/expected/sourcemap/sourcemap.css.map');
+        });
+
+        it('creates the expected output and source map', function () {
+            expect(actual).to.equal(expected);
+            expect(actualMap).to.equal(expectedMap);
+        });
+    });
 });
