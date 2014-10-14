@@ -1,3 +1,9 @@
+#Not Actively Maintained
+
+This project was built as an attempt to fit libsass into our build process at project collins more comfortably than grunt-sass but at the time libsass had not reached a level of feature parity which would allow it to use it. While that may no longer be the case I don't have time right now to come back to this project. It's not quite dead, but definitely sleeping.
+
+For fast sass compilation with libsass look at [grunt-sass](https://github.com/sindresorhus/grunt-sass) which is an actively maintained grunt sass compiler using libsass
+
 # grunt-libsass
 
 > Fast grunt sass compiler using libsass via node-sass
